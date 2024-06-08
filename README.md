@@ -7,6 +7,13 @@ Simple tool to snapshot LXC containers on Incus and backup/restore them offside
 curl -so- https://raw.githubusercontent.com/Ne00n/lxcSnap/master/install.sh | bash -s
 ```
 
+**Usage**<br>
+```
+snapshot create mahContainer
+snapshot create mahContainer 7d
+snapshot restore mahContainer
+```
+
 **Storage Server**<br>
 lxcSnap uses [Seaweedfs](https://github.com/seaweedfs/seaweedfs).<br>
 Getting a Seaweedfs server up and running as as simple as.<br>

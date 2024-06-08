@@ -11,3 +11,7 @@ if len(sys.argv) == 1:
     print("Missing argument")
 elif sys.argv[1] == "update":
     snap.update()
+elif sys.argv[1] == "create":
+    snap.create(sys.argv[2:])
+elif sys.argv[1] == "restore":
+    snap.restore(sys.argv[2])

@@ -1,4 +1,4 @@
-import subprocess, requests, shutil, sys, os
+import subprocess, requests, shutil, json, sys, os
 
 class SNAP():
 
@@ -61,3 +61,14 @@ class SNAP():
         result = subprocess.run(f"incus image delete {container}Backup", shell=True)
         if result.returncode != 0: return False
         return True
+
+    def create(self,params):
+        if len(params) == 0: return False
+        container, ttl = params[0], None
+        if len(params) > 1: ttl = params[1]
+        print(f"Creating Backup for {container}")
+        self.snapShot(container)
+
+    def restore(self,container):
+        print(f"Restoring {container}")
+        self.snapRestore(container,"")
