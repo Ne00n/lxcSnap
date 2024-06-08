@@ -9,9 +9,9 @@ curl -so- https://raw.githubusercontent.com/Ne00n/lxcSnap/master/install.sh | ba
 
 **Usage**<br>
 ```
-snapshot create mahContainer
-snapshot create mahContainer 7d
-snapshot restore mahContainer
+lxcsnap create mahContainer
+lxcsnap create mahContainer 7d
+lxcsnap restore mahContainer
 ```
 
 **Storage Server**<br>
