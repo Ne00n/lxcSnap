@@ -9,9 +9,11 @@ class SNAP():
     def update(self):
         subprocess.run("cd; git pull",shell=True)
 
-    def reqFileID(self):
+    def reqFileID(self,ttl=None):
         try:
-            req = requests.get(f"https://{self.config['endpoint']}/dir/assign", timeout=(5,5))
+            reqUrl = f"https://{self.config['endpoint']}/dir/assign"
+            if ttl: reqUrl += f"?ttl={ttl}"
+            req = requests.get(reqUrl, timeout=(5,5))
             if req.status_code == 200: return r.json()
         except Exception as ex:
             print(f"Error {ex}")
