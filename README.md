@@ -1,4 +1,5 @@
 # lxcSnapshot
+## Work in Progress
 Simple tool to snapshot LXC containers on Incus and backup/restore them offside
 
 **Install**<br>
@@ -22,7 +23,7 @@ A reverse proxy will do.<br>
 ```
 apt-get install nginx -y
 ```
-Install the vHost
+vHost example config
 ```
 server {
     listen 80;
