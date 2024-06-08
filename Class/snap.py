@@ -41,3 +41,23 @@ class SNAP():
             if req.status_code == 200: return True
         except Exception as ex:
             print(f"Error {ex}")
+
+    def snapShot(self,container):
+        result = subprocess.run(f"incus snapshot {container} backup", shell=True)
+        if result.returncode != 0: return False
+        result = subprocess.run(f"incus publish {container}/backup --alias {container}Backup", shell=True)
+        if result.returncode != 0: return False
+        result = subprocess.run(f"incus image export {container}Backup .", shell=True)
+        if result.returncode != 0: return False
+        result = subprocess.run(f"incus image delete {container}Backup", shell=True)
+        if result.returncode != 0: return False
+        return True
+
+    def snapRestore(self,container,backupFile):
+        result = subprocess.run(f"incus image import {backupFile} --alias {container}Backup", shell=True)
+        if result.returncode != 0: return False
+        result = subprocess.run(f"incus launch {container}Backup {container}", shell=True)
+        if result.returncode != 0: return False
+        result = subprocess.run(f"incus image delete {container}Backup", shell=True)
+        if result.returncode != 0: return False
+        return True
