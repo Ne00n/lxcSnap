@@ -16,4 +16,5 @@ su lxcSnap <<EOF2
 EOF2
 EOF
 chmod +x /usr/local/bin/lxcSnap
-cp /opt/lxcSnap/configs/config.example.json cp /opt/lxcSnap/configs/config.json 
+cp /opt/lxcSnap/configs/config.example.json cp /opt/lxcSnap/configs/config.json
+usermod -a -G incus-admin lxcSnap
