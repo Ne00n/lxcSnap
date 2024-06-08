@@ -8,7 +8,7 @@ git checkout master
 useradd lxcSnap -r -d /opt/lxcSnap -s /bin/bash
 chown -R lxcSnap:lxcSnap /opt/lxcSnap/
 #add wgmesh to /usr/local/bin
-cat <<EOF >>/usr/local/bin/lxcSnap
+cat <<EOF >>/usr/local/bin/lxcsnap
 #!/bin/bash
 if [[ $(id -u) -ne 0 ]] ; then echo "Please run as root" ; exit 1 ; fi
 su lxcSnap <<EOF2
