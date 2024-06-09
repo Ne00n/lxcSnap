@@ -4,6 +4,7 @@ if [[ $(id -u) -ne 0 ]] ; then echo "Please run as root" ; exit 1 ; fi
 apt-get install python3 git -y
 cd /opt/
 git clone https://github.com/Ne00n/lxcSnap.git
+cd lxcSnap
 git checkout master
 useradd lxcSnap -r -d /opt/lxcSnap -s /bin/bash
 chown -R lxcSnap:lxcSnap /opt/lxcSnap/
