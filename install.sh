@@ -16,6 +16,6 @@ su lxcSnap <<EOF2
 /opt/lxcSnap/snap.py \$@
 EOF2
 EOF
-chmod +x /usr/local/bin/lxcSnap
+chmod +x /usr/local/bin/lxcsnap
 cp /opt/lxcSnap/configs/config.example.json cp /opt/lxcSnap/configs/config.json
 usermod -a -G incus-admin lxcSnap
