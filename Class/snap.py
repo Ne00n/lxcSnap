@@ -44,7 +44,7 @@ class SNAP():
             print(f"Error {ex}")
 
     def snapShot(self,container):
-        result = subprocess.run(f"{self.config['type']} snapshot {container} backup", shell=True)
+        result = subprocess.run(f"{self.config['type']} snapshot create {container} backup", shell=True)
         if result.returncode != 0: return False
         result = subprocess.run(f"{self.config['type']} publish {container}/backup --alias {container}Backup", shell=True)
         if result.returncode != 0: return False
