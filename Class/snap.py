@@ -91,10 +91,12 @@ class SNAP():
         print(f"Uploading file as {response['fid']}")
         result = self.uploadFile(f'{self.path}/tmp/{container}Backup.tar.gz',response['fid'])
         if not result: return
+        print(f"Cleaning up")
         os.remove(f'{self.path}/tmp/{container}Backup.tar.gz')
         if not container in self.backups: self.backups[container] = []
         self.backups[container].append({"created":int(time.time()),"fileID":response['fid']})
         with open(f'{self.path}/configs/backups.json', 'w') as f: json.dump(self.backups, f)
+        print(f"Done")
 
     def restore(self,container):
         print(f"Restoring {container}")
