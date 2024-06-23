@@ -48,7 +48,7 @@ class SNAP():
         if result.returncode != 0: return False
         result = subprocess.run(f"{self.config['type']} publish {container}/{container}Backup --alias {container}Backup", shell=True)
         if result.returncode != 0: return False
-        result = subprocess.run(f"{self.config['type']} image export {container}Backup /opt/lxcSnap/tmp/{container}Backup.tar.gz", shell=True)
+        result = subprocess.run(f"{self.config['type']} image export {container}Backup /opt/lxcSnap/tmp/{container}Backup", shell=True)
         if result.returncode != 0: return False
         result = subprocess.run(f"{self.config['type']} image delete {container}Backup", shell=True)
         if result.returncode != 0: return False
