@@ -3,6 +3,7 @@
 Simple tool to snapshot LXC containers on Incus and backup/restore them offside
 
 **Install**<br>
+Make sure incus is already installed.<br>
 ```
 curl -so- https://raw.githubusercontent.com/Ne00n/lxcSnap/master/install.sh | bash -s
 ```
