@@ -1,10 +1,13 @@
-import subprocess, requests, shutil, json, sys, os
+import subprocess, requests, shutil, json, time, sys, os
 
 class SNAP():
 
     def __init__(self,path):
         self.path = path
         with open(f'{self.path}/configs/config.json') as f: self.config = json.load(f)
+        if not os.path.isfile(f'{self.path}/configs/backups.json'): 
+            with open(f'{self.path}/configs/backups.json', 'w') as f: json.dump({}, f)
+        with open(f'{self.path}/configs/backups.json') as f: self.backups = json.load(f)
         self.headers = {"Basic":self.config['auth']}
 
     def update(self):
@@ -71,6 +74,12 @@ class SNAP():
         if len(params) > 1: ttl = params[1]
         print(f"Creating Backup for {container}")
         self.snapShot(container)
+        fileID = self.reqFileID(ttl)
+        print(f"Uploading file as {fileID}")
+        result = self.uploadFile(f'{self.path}/tmp/{container}Backup.tar.gz',fileID)
+        if not result: return
+        os.remove(f'{self.path}/tmp/{container}Backup.tar.gz')
+        self.backups[fileID] = {"created":int(time.time())}
 
     def restore(self,container):
         print(f"Restoring {container}")
