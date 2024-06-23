@@ -19,6 +19,7 @@ class SNAP():
             if ttl: reqUrl += f"?ttl={ttl}"
             req = requests.get(reqUrl, timeout=(5,5), headers=self.headers)
             if req.status_code == 200: return r.json()
+            print(f"Error got {req.status_code}")
         except Exception as ex:
             print(f"Error {ex}")
             return {}
@@ -28,6 +29,7 @@ class SNAP():
             with open(file, 'rb') as f:
                 req = requests.post(f"https://{self.config['endpoint']}/{fid}", data=f, headers=self.headers)
             if req.status_code == 200: return True
+            print(f"Error got {req.status_code}")
         except Exception as ex:
             print(f"Error {ex}")
 
@@ -36,6 +38,7 @@ class SNAP():
             with requests.get(f"https://{self.config['endpoint']}/{fid}", stream=True, headers=self.headers) as r:
                 with open(fid, 'wb') as f:
                     shutil.copyfileobj(r.raw, f)
+            print(f"Error got {req.status_code}")
         except Exception as ex:
             print(f"Error {ex}")
 
@@ -43,6 +46,7 @@ class SNAP():
         try:
             req = requests.delete(f"https://{self.config['endpoint']}/{fid}", timeout=(5,5), headers=self.headers)
             if req.status_code == 200: return True
+            print(f"Error got {req.status_code}")
         except Exception as ex:
             print(f"Error {ex}")
 
