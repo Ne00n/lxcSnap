@@ -1,6 +1,7 @@
 {
     "type":"incus",
-    "auth":"",
+    "username":"",
+    "password":"",
     "endpoint":"",
     "backupAll":false
 }

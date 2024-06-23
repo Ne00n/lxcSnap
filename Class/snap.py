@@ -17,7 +17,7 @@ class SNAP():
         try:
             reqUrl = f"https://{self.config['endpoint']}/dir/assign"
             if ttl: reqUrl += f"?ttl={ttl}"
-            req = requests.get(reqUrl, timeout=(5,5), headers=self.headers)
+            req = requests.get(reqUrl, timeout=(5,5), auth=(self.config['username'], self.config['password']))
             if req.status_code == 200: return r.json()
             print(f"Error got {req.status_code}")
         except Exception as ex:
@@ -27,7 +27,7 @@ class SNAP():
     def uploadFile(self,file,fid):
         try:
             with open(file, 'rb') as f:
-                req = requests.post(f"https://{self.config['endpoint']}/{fid}", data=f, headers=self.headers)
+                req = requests.post(f"https://{self.config['endpoint']}/{fid}", data=f, auth=(self.config['username'], self.config['password']))
             if req.status_code == 200: return True
             print(f"Error got {req.status_code}")
         except Exception as ex:
@@ -35,7 +35,7 @@ class SNAP():
 
     def downloadFile(self,fid):
         try:
-            with requests.get(f"https://{self.config['endpoint']}/{fid}", stream=True, headers=self.headers) as r:
+            with requests.get(f"https://{self.config['endpoint']}/{fid}", stream=True, auth=(self.config['username'], self.config['password'])) as r:
                 with open(fid, 'wb') as f:
                     shutil.copyfileobj(r.raw, f)
             print(f"Error got {req.status_code}")
@@ -44,7 +44,7 @@ class SNAP():
 
     def deleteFile(self,fid):
         try:
-            req = requests.delete(f"https://{self.config['endpoint']}/{fid}", timeout=(5,5), headers=self.headers)
+            req = requests.delete(f"https://{self.config['endpoint']}/{fid}", timeout=(5,5), auth=(self.config['username'], self.config['password']))
             if req.status_code == 200: return True
             print(f"Error got {req.status_code}")
         except Exception as ex:

@@ -11,7 +11,8 @@ curl -so- https://raw.githubusercontent.com/Ne00n/lxcSnap/master/install.sh | ba
 **Usage**<br>
 ```
 lxcsnap set endpoint https://mahstorage.bla.com
-lxcsnap set auth basic
+lxcsnap set username user
+lxcsnap set password pw
 lxcsnap create mahContainer
 lxcsnap create mahContainer 7d
 lxcsnap restore mahContainer
