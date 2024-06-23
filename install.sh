@@ -7,6 +7,7 @@ git clone https://github.com/Ne00n/lxcSnap.git
 cd lxcSnap
 git checkout master
 useradd lxcSnap -r -d /opt/lxcSnap -s /bin/bash
+cp /opt/lxcSnap/configs/config.example.json /opt/lxcSnap/configs/config.json
 chown -R lxcSnap:lxcSnap /opt/lxcSnap/
 #add wgmesh to /usr/local/bin
 cat <<EOF >>/usr/local/bin/lxcsnap
@@ -17,5 +18,4 @@ su lxcSnap <<EOF2
 EOF2
 EOF
 chmod +x /usr/local/bin/lxcsnap
-cp /opt/lxcSnap/configs/config.example.json /opt/lxcSnap/configs/config.json
 usermod -a -G incus-admin lxcSnap
