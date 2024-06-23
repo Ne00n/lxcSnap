@@ -40,6 +40,7 @@ vHost example config
 server {
     listen 80;
     server_name mahstorage.com;
+    client_max_body_size 100G;
 
     location / {
         auth_basic "Restricted Access";
