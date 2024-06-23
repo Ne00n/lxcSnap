@@ -32,7 +32,7 @@ mkdir data
 Seaweedfs doesn't support any authentication on the master server, so we have to do our own.<br>
 A reverse proxy will do.<br>
 ```
-apt-get install nginx -y
+apt-get install nginx apache2-utils -y
 ```
 vHost example config
 ```
@@ -47,4 +47,8 @@ server {
         proxy_set_header Host $host;
     }
 }
+```
+You can generate the .htpassword with<br>
+```
+htpasswd -c /etc/nginx/.htpasswd <user>
 ```
