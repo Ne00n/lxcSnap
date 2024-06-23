@@ -72,3 +72,8 @@ class SNAP():
     def restore(self,container):
         print(f"Restoring {container}")
         self.snapRestore(container,"")
+
+    def setConfig(self,params):
+        key, value = params[0],params[1]
+        self.config[key] = value
+        with open(f'{self.path}/configs/config.json', 'w') as f: json.dump(self.config,f,indent=4)

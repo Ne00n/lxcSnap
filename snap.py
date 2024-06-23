@@ -15,3 +15,5 @@ elif sys.argv[1] == "create":
     snap.create(sys.argv[2:])
 elif sys.argv[1] == "restore":
     snap.restore(sys.argv[2])
+elif sys.argv[1] == "set":
+    snap.setConfig(sys.argv[2:])

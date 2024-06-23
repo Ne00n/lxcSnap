@@ -1,6 +1,7 @@
 {
     "type":"incus",
+    "auth":"",
     "endpoint":"",
     "backupAll":false,
-    "backup": []
+    "backups": []
 }
