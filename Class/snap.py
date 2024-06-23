@@ -85,6 +85,9 @@ class SNAP():
                 print(f"Failed to create Backup for {container}")
                 return       
         fileID = self.reqFileID(ttl)
+        if not fileID:
+            print(f"Failed to get fileID for {container}")
+            return
         print(f"Uploading file as {fileID}")
         result = self.uploadFile(f'{self.path}/tmp/{container}Backup.tar.gz',fileID)
         if not result: return
