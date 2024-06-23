@@ -18,7 +18,7 @@ class SNAP():
             reqUrl = f"https://{self.config['endpoint']}/dir/assign"
             if ttl: reqUrl += f"?ttl={ttl}"
             req = requests.get(reqUrl, timeout=(5,5), auth=(self.config['username'], self.config['password']))
-            if req.status_code == 200: return r.json()
+            if req.status_code == 200: return req.json()
             print(f"Error got {req.status_code}")
         except Exception as ex:
             print(f"Error {ex}")
