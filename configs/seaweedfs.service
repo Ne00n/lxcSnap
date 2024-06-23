@@ -1,0 +1,19 @@
+[Unit]
+Description=SeaweedFS
+After=network.target
+StartLimitBurst=3
+StartLimitIntervalSec=200
+
+[Service]
+Type=simple
+User=seaweedfs
+Group=seaweedfs
+Restart=on-failure
+RestartSec=60s
+
+ExecStart=/home/seaweedfs/weed server -dir=data
+WorkingDirectory=/home/seaweedfs/
+SyslogIdentifier=seaweedfs
+
+[Install]
+WantedBy=multi-user.target
