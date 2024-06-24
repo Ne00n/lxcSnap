@@ -34,7 +34,7 @@ class SNAP():
     def downloadFile(self,fid):
         try:
             with requests.get(f"https://{self.config['filer']}/{fid}", stream=True, auth=(self.config['username'], self.config['password'])) as r:
-                with open(f'{self.path}/tmp/{fileID}', 'wb') as f:
+                with open(f'{self.path}/tmp/{fileID}.tar.gz', 'wb') as f:
                     shutil.copyfileobj(r.raw, f)
             return True
         except Exception as ex:
