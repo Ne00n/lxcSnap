@@ -29,16 +29,17 @@ class SNAP():
             return req.status_code,""
         except Exception as ex:
             return 0,ex
-        return 0,""
+        return 0,"Failed to upload file"
 
     def downloadFile(self,fid):
         try:
-            with requests.get(f"https://{self.config['filer']}/{fid}", stream=True, auth=(self.config['username'], self.config['password'])) as r:
-                with open(fid, 'wb') as f:
+            req = requests.get(f"https://{self.config['filer']}/{fid}", stream=True, auth=(self.config['username'], self.config['password'])) as r:
+                with open(f'{self.path}/tmp/{fileID}', 'wb') as f:
                     shutil.copyfileobj(r.raw, f)
-            print(f"Error got {req.status_code}")
+            return req.status_code,""
         except Exception as ex:
-            print(f"Error {ex}")
+            return 0,ex
+        return 0,"Failed to download file"
 
     def deleteFile(self,fid):
         try:
@@ -106,6 +107,14 @@ class SNAP():
                 print(datetime.datetime.fromtimestamp(backup['created']).strftime('%c'),backup['fileID'])
         else:
             print(f"Could not find {container} in backups")
+
+    def download(self,fileID):
+        print(f"Downloading file {fileID}")
+        statusCode, message = self.downloadFile(fileID)
+        if statusCode != 200:
+            print(f"Error at downloading file {message}")
+            return False
+        print(f"File downloaded as {self.path}/tmp/{fileID}")
 
     def restore(self,container):
         print(f"Restoring {container}")

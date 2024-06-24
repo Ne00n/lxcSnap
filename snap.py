@@ -15,9 +15,11 @@ elif sys.argv[1] == "create":
     snap.create(sys.argv[2:])
 elif sys.argv[1] == "list":
     snap.backupsList(sys.argv[2])
+elif sys.argv[1] == "download":
+    snap.download(sys.argv[2])
 elif sys.argv[1] == "restore":
     snap.restore(sys.argv[2])
 elif sys.argv[1] == "set":
     snap.setConfig(sys.argv[2:])
 elif sys.argv[1] == "help":
-    print("update, create, list, restore, set <key> <value>")
+    print("update, create, list, download, restore, set <key> <value>")
