@@ -17,20 +17,19 @@ class SNAP():
             reqUrl = f"https://{self.config['master']}/dir/assign"
             if ttl: reqUrl += f"?ttl={ttl}"
             req = requests.get(reqUrl, timeout=(5,5), auth=(self.config['username'], self.config['password']))
-            if req.status_code == 200: return req.json()
-            print(f"Error got {req.status_code}")
+            return req.status_code,req.json()
         except Exception as ex:
-            print(f"Error {ex}")
-            return {}
+            return 0,ex
+        return 0,""
 
     def uploadFile(self,file,fid):
         try:
             with open(file, 'rb') as f:
-                req = requests.post(f"https://{self.config['filer']}/{fid}", data=f, auth=(self.config['username'], self.config['password']))
-            if req.status_code == 200: return True
-            print(f"Error got {req.status_code}")
+                req = requests.post(f"https://{self.config['filer']}/{fid}", data=f, headers={'Content-Type': 'form/multipart'}, auth=(self.config['username'], self.config['password']))
+            return req.status_code,""
         except Exception as ex:
-            print(f"Error {ex}")
+            return 0,ex
+        return 0,""
 
     def downloadFile(self,fid):
         try:
@@ -83,13 +82,15 @@ class SNAP():
             if not result: 
                 print(f"Failed to create Backup for {container}")
                 return False       
-        response = self.reqFileID(ttl)
-        if not response:
-            print(f"Failed to get fileID for {container}")
+        statusCode,message = self.reqFileID(ttl)
+        if statusCode != 200:
+            print(f"Error at requesting fileID {message}")
             return False
-        print(f"Uploading file as {response['fid']}")
-        result = self.uploadFile(f'{self.path}/tmp/{container}Backup.tar.gz',response['fid'])
-        if not result: return
+        print(f"Uploading file as {message['fid']}")
+        statusCode,message = self.uploadFile(f'{self.path}/tmp/{container}Backup.tar.gz',message['fid'])
+        if statusCode != 201:
+            print(f"Error at uploading file {message}")
+            return False
         print(f"Cleaning up")
         os.remove(f'{self.path}/tmp/{container}Backup.tar.gz')
         if not container in self.backups: self.backups[container] = []
