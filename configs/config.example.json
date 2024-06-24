@@ -2,6 +2,7 @@
     "type":"incus",
     "username":"",
     "password":"",
-    "endpoint":"",
+    "master":"",
+    "filer":"",
     "backupAll":false
 }

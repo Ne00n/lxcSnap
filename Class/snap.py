@@ -8,14 +8,13 @@ class SNAP():
         if not os.path.isfile(f'{self.path}/configs/backups.json'): 
             with open(f'{self.path}/configs/backups.json', 'w') as f: json.dump({}, f)
         with open(f'{self.path}/configs/backups.json') as f: self.backups = json.load(f)
-        self.headers = {"Basic":self.config['auth']}
 
     def update(self):
         subprocess.run("cd; git pull",shell=True)
 
     def reqFileID(self,ttl=None):
         try:
-            reqUrl = f"https://{self.config['endpoint']}/dir/assign"
+            reqUrl = f"https://{self.config['master']}/dir/assign"
             if ttl: reqUrl += f"?ttl={ttl}"
             req = requests.get(reqUrl, timeout=(5,5), auth=(self.config['username'], self.config['password']))
             if req.status_code == 200: return req.json()
@@ -27,7 +26,7 @@ class SNAP():
     def uploadFile(self,file,fid):
         try:
             with open(file, 'rb') as f:
-                req = requests.post(f"https://{self.config['endpoint']}/{fid}", data=f, auth=(self.config['username'], self.config['password']))
+                req = requests.post(f"https://{self.config['filer']}/{fid}", data=f, auth=(self.config['username'], self.config['password']))
             if req.status_code == 200: return True
             print(f"Error got {req.status_code}")
         except Exception as ex:
@@ -35,7 +34,7 @@ class SNAP():
 
     def downloadFile(self,fid):
         try:
-            with requests.get(f"https://{self.config['endpoint']}/{fid}", stream=True, auth=(self.config['username'], self.config['password'])) as r:
+            with requests.get(f"https://{self.config['filer']}/{fid}", stream=True, auth=(self.config['username'], self.config['password'])) as r:
                 with open(fid, 'wb') as f:
                     shutil.copyfileobj(r.raw, f)
             print(f"Error got {req.status_code}")
@@ -44,7 +43,7 @@ class SNAP():
 
     def deleteFile(self,fid):
         try:
-            req = requests.delete(f"https://{self.config['endpoint']}/{fid}", timeout=(5,5), auth=(self.config['username'], self.config['password']))
+            req = requests.delete(f"https://{self.config['filer']}/{fid}", timeout=(5,5), auth=(self.config['username'], self.config['password']))
             if req.status_code == 200: return True
             print(f"Error got {req.status_code}")
         except Exception as ex:
@@ -103,6 +102,17 @@ class SNAP():
         self.snapRestore(container,"")
 
     def setConfig(self,params):
-        key, value = params[0],params[1]
-        self.config[key] = value
+        key, value = params[0],params[1:]
+        if key == "auth":
+            self.config["username"] = value[0]
+            self.config["password"] = value[1]
+        elif key == "endpoint":
+            if len(value) > 1:
+                self.config['master'] = value[0]
+                self.config['filer'] = value[1]
+            else:
+                self.config['master'] = value[0]
+                self.config['filer'] = value[0]
+        else:
+            self.config[key] = value[0]
         with open(f'{self.path}/configs/config.json', 'w') as f: json.dump(self.config,f,indent=4)
