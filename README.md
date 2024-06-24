@@ -10,8 +10,8 @@ curl -so- https://raw.githubusercontent.com/Ne00n/lxcSnap/master/install.sh | ba
 
 **Usage**<br>
 ```
-lxcsnap set endpoint https://<master> https://<filer>
-lxcsnap set endpoint https://<master/filer>
+lxcsnap set endpoint <master.mydomain.com> <filer.mydomain.com>
+lxcsnap set endpoint <master/filer.mydomain.com>
 lxcsnap set auth <user> <pw>
 lxcsnap create mahContainer
 lxcsnap create mahContainer 7d
