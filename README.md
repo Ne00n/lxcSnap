@@ -15,6 +15,7 @@ lxcsnap set endpoint <master/filer.mydomain.com>
 lxcsnap set auth <user> <pw>
 lxcsnap create mahContainer
 lxcsnap create mahContainer 7d
+lxcsnap list mahContainer
 lxcsnap restore mahContainer
 lxcsnap update
 ```

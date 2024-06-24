@@ -1,4 +1,4 @@
-import subprocess, requests, shutil, json, time, sys, os
+import subprocess, requests, shutil, json, time, datetime, sys, os
 
 class SNAP():
 
@@ -98,6 +98,14 @@ class SNAP():
         self.backups[container].append({"created":int(time.time()),"fileID":assign['fid']})
         with open(f'{self.path}/configs/backups.json', 'w') as f: json.dump(self.backups, f)
         print(f"Done")
+
+    def backupsList(self,container):
+        if container in self.backups:
+            backups = self.backups[container]
+            for backup in backups:
+                print(datetime.datetime.fromtimestamp(backup['created']).strftime('%c'),backup['fileID'])
+        else:
+            print(f"Could not find {container} in backups")
 
     def restore(self,container):
         print(f"Restoring {container}")
