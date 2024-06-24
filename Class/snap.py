@@ -116,6 +116,14 @@ class SNAP():
             return False
         print(f"File downloaded as {self.path}/tmp/{fileID}")
 
+    def delete(self,fileID):
+        print(f"Deleting file {fileID}")
+        statusCode, message = self.deleteFile(fileID)
+        if statusCode != 200:
+            print(f"Error at deleting file {message}")
+            return False
+        print(f"{fileID} deleted")
+
     def restore(self,container):
         print(f"Restoring {container}")
         self.snapRestore(container,"")
