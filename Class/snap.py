@@ -33,10 +33,10 @@ class SNAP():
 
     def downloadFile(self,fid):
         try:
-            req = requests.get(f"https://{self.config['filer']}/{fid}", stream=True, auth=(self.config['username'], self.config['password'])) as r:
+            with requests.get(f"https://{self.config['filer']}/{fid}", stream=True, auth=(self.config['username'], self.config['password'])) as r:
                 with open(f'{self.path}/tmp/{fileID}', 'wb') as f:
                     shutil.copyfileobj(r.raw, f)
-            return req.status_code,""
+            return True
         except Exception as ex:
             return 0,ex
         return 0,"Failed to download file"
@@ -110,8 +110,8 @@ class SNAP():
 
     def download(self,fileID):
         print(f"Downloading file {fileID}")
-        statusCode, message = self.downloadFile(fileID)
-        if statusCode != 200:
+        response = self.downloadFile(fileID)
+        if not response:
             print(f"Error at downloading file {message}")
             return False
         print(f"File downloaded as {self.path}/tmp/{fileID}")
