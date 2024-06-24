@@ -83,18 +83,19 @@ class SNAP():
                 print(f"Failed to create Backup for {container}")
                 return False       
         statusCode,message = self.reqFileID(ttl)
+        assign = message
         if statusCode != 200:
             print(f"Error at requesting fileID {message}")
             return False
-        print(f"Uploading file as {message['fid']}")
-        statusCode,message = self.uploadFile(f'{self.path}/tmp/{container}Backup.tar.gz',message['fid'])
+        print(f"Uploading file as {assign['fid']}")
+        statusCode,message = self.uploadFile(f'{self.path}/tmp/{container}Backup.tar.gz',assign['fid'])
         if statusCode != 201:
             print(f"Error at uploading file {message}")
             return False
         print(f"Cleaning up")
         os.remove(f'{self.path}/tmp/{container}Backup.tar.gz')
         if not container in self.backups: self.backups[container] = []
-        self.backups[container].append({"created":int(time.time()),"fileID":response['fid']})
+        self.backups[container].append({"created":int(time.time()),"fileID":assign['fid']})
         with open(f'{self.path}/configs/backups.json', 'w') as f: json.dump(self.backups, f)
         print(f"Done")
 
