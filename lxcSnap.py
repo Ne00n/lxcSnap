@@ -17,6 +17,8 @@ elif sys.argv[1] == "download" and len(sys.argv) > 2:
     snap.download(sys.argv[2])
 elif sys.argv[1] == "delete" and len(sys.argv) > 2:
     snap.delete(sys.argv[2])
+elif sys.argv[1] == "restore" and len(sys.argv) > 3:
+    snap.restore(sys.argv[2],sys.argv[3])
 elif sys.argv[1] == "restore" and len(sys.argv) > 2:
     snap.restore(sys.argv[2])
 elif sys.argv[1] == "set" and len(sys.argv) > 3:

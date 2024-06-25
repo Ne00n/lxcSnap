@@ -16,7 +16,9 @@ lxcsnap set auth <user> <pw>
 lxcsnap create mahContainer
 lxcsnap create mahContainer 7d
 lxcsnap list mahContainer
+lxcsnap download <fileID>
 lxcsnap restore mahContainer
+lxcsnap restore mahContainer <fileID>
 lxcsnap update
 ```
 

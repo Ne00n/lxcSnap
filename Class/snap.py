@@ -140,13 +140,18 @@ class SNAP():
             if container['name'] == targetContainer: return True
         return False
 
-    def restore(self,container):
+    def restore(self,container,source=""):
         if self.containerExists(container):
             print(f"{container} exists, unable to restore")
             return False
-        print(f"Downloading last backup for {container}")
-        latestBackup = self.backups[container][len(self.backups[container]) -1]
-        response = self.download(latestBackup['fileID'])
+        if source:
+            print(f"Downloading {source}")
+            response = self.download(source)
+            latestBackup['fileID'] = source
+        else:
+            print(f"Downloading last backup for {container}")
+            latestBackup = self.backups[container][len(self.backups[container]) -1]
+            response = self.download(latestBackup['fileID'])
         if not response: return False
         print(f"Restoring {container}")
         response = self.snapRestore(container,f"{self.path}/tmp/{latestBackup['fileID']}.tar.gz")
