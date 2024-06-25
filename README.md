@@ -17,6 +17,7 @@ lxcsnap create mahContainer
 lxcsnap create mahContainer 7d
 lxcsnap list mahContainer
 lxcsnap download <fileID>
+lxcsnap delete <fileID>
 lxcsnap restore mahContainer
 lxcsnap restore mahContainer <fileID>
 lxcsnap restore mahContainer <fileID> mahContainer2
