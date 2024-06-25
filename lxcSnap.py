@@ -19,7 +19,7 @@ elif sys.argv[1] == "delete" and len(sys.argv) > 2:
     snap.delete(sys.argv[2])
 elif sys.argv[1] == "restore" and len(sys.argv) > 2:
     snap.restore(sys.argv[2])
-elif sys.argv[1] == "set" and len(sys.argv) > 2:
+elif sys.argv[1] == "set" and len(sys.argv) > 3:
     snap.setConfig(sys.argv[2:])
 elif sys.argv[1] == "help":
     print("update, create <container>, list <container>, download <fid>, delete <fid>, restore <container>, set <key> <value>")
