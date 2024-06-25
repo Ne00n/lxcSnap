@@ -31,7 +31,7 @@ class SNAP():
             return 0,ex
         return 0,"Failed to upload file"
 
-    def downloadFile(self,fid):
+    def downloadFile(self,fileID):
         try:
             with requests.get(f"https://{self.config['filer']}/{fid}", stream=True, auth=(self.config['username'], self.config['password'])) as r:
                 with open(f'{self.path}/tmp/{fileID}.tar.gz', 'wb') as f:
