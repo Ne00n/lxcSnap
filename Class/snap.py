@@ -156,5 +156,4 @@ class SNAP():
                 self.config['master'] = value[0]
                 self.config['filer'] = value[0]
         else:
-            self.config[key] = value[0]
-        with open(f'{self.path}/configs/config.json', 'w') as f: json.dump(self.config,f,indent=4)
+            self.config[key] = value[0]download

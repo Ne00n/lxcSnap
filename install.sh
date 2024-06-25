@@ -14,7 +14,7 @@ cat <<EOF >>/usr/local/bin/lxcsnap
 #!/bin/bash
 if [[ $(id -u) -ne 0 ]] ; then echo "Please run as root" ; exit 1 ; fi
 su lxcSnap <<EOF2
-/opt/lxcSnap/snap.py \$@
+/opt/lxcSnap/lxcsnap.py \$@
 EOF2
 EOF
 chmod +x /usr/local/bin/lxcsnap
