@@ -45,7 +45,6 @@ class SNAP():
     def deleteFile(self,fileID):
         try:
             req = requests.delete(f"https://{self.config['filer']}/{fileID}", timeout=(5,5), auth=(self.config['username'], self.config['password']))
-            if req.status_code == 202: return True
             return req.status_code,""
         except Exception as ex:
             return 0,ex
@@ -129,7 +128,7 @@ class SNAP():
     def delete(self,fileID):
         print(f"Deleting file {fileID}")
         statusCode, message = self.deleteFile(fileID)
-        if statusCode != 200:
+        if statusCode != 202:
             print(f"Error at deleting file {message}")
             return False
         print(f"{fileID} deleted")
