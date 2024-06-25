@@ -7,7 +7,9 @@ import sys, os
 path = os.path.dirname(os.path.realpath(__file__))
 snap = SNAP(path)
 
-if sys.argv[1] == "update":
+if len(sys.argv) == 1:
+    print("Missing argument, try help")
+elif sys.argv[1] == "update":
     snap.update()
 elif sys.argv[1] == "create" and len(sys.argv) > 2:
     snap.create(sys.argv[2:])
