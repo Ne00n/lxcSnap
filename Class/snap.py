@@ -64,10 +64,10 @@ class SNAP():
         if result.returncode != 0: return False
         return True
 
-    def snapRestore(self,container,backupFile):
+    def snapRestore(self,container,backupFile,containerName):
         result = subprocess.run(f"{self.config['type']} image import {backupFile} --alias {container}Backup", shell=True)
         if result.returncode != 0: return False
-        result = subprocess.run(f"{self.config['type']} launch {container}Backup {container}", shell=True)
+        result = subprocess.run(f"{self.config['type']} launch {container}Backup {containerName}", shell=True)
         if result.returncode != 0: return False
         result = subprocess.run(f"{self.config['type']} image delete {container}Backup", shell=True)
         if result.returncode != 0: return False
@@ -140,7 +140,7 @@ class SNAP():
             if container['name'] == targetContainer: return True
         return False
 
-    def restore(self,container,source=""):
+    def restore(self,container,source="",target=""):
         if self.containerExists(container):
             print(f"{container} exists, unable to restore")
             return False
@@ -154,7 +154,8 @@ class SNAP():
             response = self.download(latestBackup['fileID'])
         if not response: return False
         print(f"Restoring {container}")
-        response = self.snapRestore(container,f"{self.path}/tmp/{latestBackup['fileID']}.tar.gz")
+        targetContainer = target if target else container
+        response = self.snapRestore(container,f"{self.path}/tmp/{latestBackup['fileID']}.tar.gz",targetContainer)
         if not response:
             print(f"Failed to restore {container}")
             return False

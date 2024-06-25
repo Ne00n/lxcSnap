@@ -19,6 +19,7 @@ lxcsnap list mahContainer
 lxcsnap download <fileID>
 lxcsnap restore mahContainer
 lxcsnap restore mahContainer <fileID>
+lxcsnap restore mahContainer <fileID> mahContainer2
 lxcsnap update
 ```
 
