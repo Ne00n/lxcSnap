@@ -17,5 +17,5 @@ su lxcSnap <<EOF2
 /opt/lxcSnap/lxcsnap.py \$@
 EOF2
 EOF
-chmod +x /usr/local/bin/lxcsnap
+chmod +x /usr/local/bin/lxcSnap
 usermod -a -G incus-admin lxcSnap
