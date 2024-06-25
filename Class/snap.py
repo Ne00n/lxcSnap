@@ -125,12 +125,19 @@ class SNAP():
         print(f"File downloaded as {self.path}/tmp/{fileID}.tar.gz")
         return True
 
-    def delete(self,fileID):
+    def delete(self,container,fileID):
         print(f"Deleting file {fileID}")
         statusCode, message = self.deleteFile(fileID)
         if statusCode != 202:
             print(f"Error at deleting file {message}")
             return False
+        backups = self.backups[container]
+        for index, backup in enumerate(list(backups)):
+            if backup['fileID'] == fileID:
+                backups.pop(index)
+                break
+        self.backups[container] = backups
+        with open(f'{self.path}/configs/backups.json', 'w') as f: json.dump(self.backups, f)
         print(f"{fileID} deleted")
 
     def containerExists(self,targetContainer):
