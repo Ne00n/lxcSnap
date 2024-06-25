@@ -108,6 +108,7 @@ class SNAP():
     def backupsList(self,container):
         if container in self.backups:
             backups = self.backups[container]
+            backups.sort(key=lambda x: (-x['created'], x))
             for backup in backups:
                 print(datetime.datetime.fromtimestamp(backup['created']).strftime('%c'),backup['fileID'])
         else:
