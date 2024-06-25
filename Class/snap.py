@@ -144,8 +144,9 @@ class SNAP():
         return False
 
     def restore(self,container,source="",target=""):
-        if self.containerExists(container):
-            print(f"{container} exists, unable to restore")
+        targetContainer = target if target else container
+        if self.containerExists(targetContainer):
+            print(f"{targetContainer} exists, unable to restore")
             return False
         if source:
             print(f"Downloading {source}")
@@ -156,14 +157,13 @@ class SNAP():
             latestBackup = self.backups[container][len(self.backups[container]) -1]
             response = self.download(latestBackup['fileID'])
         if not response: return False
-        print(f"Restoring {container}")
-        targetContainer = target if target else container
+        print(f"Restoring {targetContainer}")
         response = self.snapRestore(container,f"{self.path}/tmp/{latestBackup['fileID']}.tar.gz",targetContainer)
         if not response:
-            print(f"Failed to restore {container}")
+            print(f"Failed to restore {targetContainer}")
             return False
         os.remove(f"{self.path}/tmp/{latestBackup['fileID']}.tar.gz")
-        print(f"Restored {container}")
+        print(f"Restored {targetContainer}")
 
     def setConfig(self,params):
         key, value = params[0],params[1:]
