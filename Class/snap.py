@@ -42,13 +42,14 @@ class SNAP():
             return 0,ex
         return 0,"Failed to download file"
 
-    def deleteFile(self,fid):
+    def deleteFile(self,fileID):
         try:
-            req = requests.delete(f"https://{self.config['filer']}/{fid}", timeout=(5,5), auth=(self.config['username'], self.config['password']))
+            req = requests.delete(f"https://{self.config['filer']}/{fileID}", timeout=(5,5), auth=(self.config['username'], self.config['password']))
             if req.status_code == 200: return True
-            print(f"Error got {req.status_code}")
+            return req.status_code,""
         except Exception as ex:
-            print(f"Error {ex}")
+            return 0,ex
+        return 0,"Failed to delete file"
 
     def snapShot(self,container):
         result = subprocess.run(f"{self.config['type']} snapshot create {container} {container}Backup", shell=True)
