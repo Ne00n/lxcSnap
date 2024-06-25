@@ -110,6 +110,9 @@ class SNAP():
             print(f"Could not find {container} in backups")
 
     def download(self,fileID):
+        if os.path.isfile(f'{self.path}/tmp/{fileID}.tar.gz'):
+            print(f"{fileID} is already downloaded as {self.path}/tmp/{fileID}.tar.gz")
+            return True
         print(f"Downloading file {fileID}")
         statusCode, message = self.downloadFile(fileID)
         if statusCode != 200:
