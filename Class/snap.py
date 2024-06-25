@@ -120,6 +120,7 @@ class SNAP():
             print(f"Error at downloading file {message}")
             return False
         print(f"File downloaded as {self.path}/tmp/{fileID}.tar.gz")
+        return True
 
     def delete(self,fileID):
         print(f"Deleting file {fileID}")
