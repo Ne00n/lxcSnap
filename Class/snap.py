@@ -33,7 +33,7 @@ class SNAP():
 
     def downloadFile(self,fileID):
         try:
-            with requests.get(f"https://{self.config['filer']}/{fid}", stream=True, auth=(self.config['username'], self.config['password'])) as r:
+            with requests.get(f"https://{self.config['filer']}/{fileID}", stream=True, auth=(self.config['username'], self.config['password'])) as r:
                 with open(f'{self.path}/tmp/{fileID}.tar.gz', 'wb') as f:
                     for chunk in r.iter_content(chunk_size=8192): 
                         f.write(chunk)
