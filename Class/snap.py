@@ -133,11 +133,11 @@ class SNAP():
             return False
         print(f"{fileID} deleted")
 
-    def containerExists(self,container):
+    def containerExists(self,targetContainer):
         containersRaw = subprocess.check_output(f"{self.config['type']} list --format=json", shell=True).decode("utf-8")
         containers = json.loads(containersRaw)
         for container in containers:
-            if container['name'] == container: return True
+            if container['name'] == targetContainer: return True
         return False
 
     def restore(self,container):
