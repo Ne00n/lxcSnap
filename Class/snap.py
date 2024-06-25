@@ -134,7 +134,10 @@ class SNAP():
         print(f"{fileID} deleted")
 
     def containerExists(self,targetContainer):
-        containersRaw = subprocess.check_output(f"{self.config['type']} list --format=json", shell=True).decode("utf-8")
+        try:
+            containersRaw = subprocess.check_output(f"{self.config['type']} list --format=json", shell=True).decode("utf-8")
+        except Exception as ex:
+            exit(f"Either incus is not installed or incorrect permissions.")
         containers = json.loads(containersRaw)
         for container in containers:
             if container['name'] == targetContainer: return True
