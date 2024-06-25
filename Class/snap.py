@@ -169,4 +169,4 @@ class SNAP():
                 self.config['master'] = value[0]
                 self.config['filer'] = value[0]
         else:
-            self.config[key] = value[0]download
+            self.config[key] = value[0]
