@@ -134,11 +134,11 @@ class SNAP():
         response = self.download(latestBackup['fileID'])
         if not response: return False
         print(f"Restoring {container}")
-        response = self.snapRestore(container,f"{self.path}/tmp/{fileID}.tar.gz")
+        response = self.snapRestore(container,f"{self.path}/tmp/{latestBackup['fileID']}.tar.gz")
         if not response:
             print(f"Failed to restore {container}")
             return False
-        os.remove(f"{self.path}/tmp/{fileID}.tar.gz")
+        os.remove(f"{self.path}/tmp/{latestBackup['fileID']}.tar.gz")
         print(f"Restored {container}")
 
     def setConfig(self,params):
