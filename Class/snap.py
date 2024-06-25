@@ -151,6 +151,7 @@ class SNAP():
         if source:
             print(f"Downloading {source}")
             response = self.download(source)
+            latestBackup = {}
             latestBackup['fileID'] = source
         else:
             print(f"Downloading last backup for {container}")
