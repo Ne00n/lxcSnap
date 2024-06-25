@@ -4,5 +4,6 @@
     "password":"",
     "master":"",
     "filer":"",
+    "backupBackups":true,
     "backupAll":false
 }
