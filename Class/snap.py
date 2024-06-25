@@ -77,6 +77,9 @@ class SNAP():
         if len(params) == 0: return False
         container, ttl = params[0], None
         if len(params) > 1: ttl = params[1]
+        if not self.containerExists(container):
+            print(f"{container} does not exists, unable to backup")
+            return False
         if os.path.isfile(f'{self.path}/tmp/{container}Backup.tar.gz'):
             print(f"Found existing Backup for {container}")
         else: 
