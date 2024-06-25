@@ -35,8 +35,9 @@ class SNAP():
         try:
             with requests.get(f"https://{self.config['filer']}/{fid}", stream=True, auth=(self.config['username'], self.config['password'])) as r:
                 with open(f'{self.path}/tmp/{fileID}.tar.gz', 'wb') as f:
-                    shutil.copyfileobj(r.raw, f)
-            return True
+                    for chunk in r.iter_content(chunk_size=8192): 
+                        f.write(chunk)
+            return r.status_code,""
         except Exception as ex:
             return 0,ex
         return 0,"Failed to download file"
@@ -110,8 +111,8 @@ class SNAP():
 
     def download(self,fileID):
         print(f"Downloading file {fileID}")
-        response = self.downloadFile(fileID)
-        if not response:
+        statusCode, message = self.downloadFile(fileID)
+        if statusCode != 200:
             print(f"Error at downloading file {message}")
             return False
         print(f"File downloaded as {self.path}/tmp/{fileID}")
