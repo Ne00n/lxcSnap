@@ -130,7 +130,8 @@ class SNAP():
 
     def restore(self,container):
         print(f"Downloading last backup for {container}")
-        response = self.download(fileID)
+        latestBackup = self.backups[container][len(self.backups[container]) -1]
+        response = self.download(latestBackup['fileID'])
         if not response: return False
         print(f"Restoring {container}")
         response = self.snapRestore(container,f"{self.path}/tmp/{fileID}.tar.gz")
