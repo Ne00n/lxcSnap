@@ -126,8 +126,16 @@ class SNAP():
         print(f"{fileID} deleted")
 
     def restore(self,container):
+        print(f"Downloading last backup for {container}")
+        response = self.download(fileID)
+        if not response: return False
         print(f"Restoring {container}")
-        self.snapRestore(container,"")
+        response = self.snapRestore(container,f"{self.path}/tmp/{fileID}.tar.gz")
+        if not response:
+            print(f"Failed to restore {container}")
+            return False
+        os.remove(f"{self.path}/tmp/{fileID}.tar.gz")
+        print(f"Restored {container}")
 
     def setConfig(self,params):
         key, value = params[0],params[1:]
