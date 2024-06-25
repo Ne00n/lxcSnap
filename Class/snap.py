@@ -115,7 +115,7 @@ class SNAP():
         if statusCode != 200:
             print(f"Error at downloading file {message}")
             return False
-        print(f"File downloaded as {self.path}/tmp/{fileID}")
+        print(f"File downloaded as {self.path}/tmp/{fileID}.tar.gz")
 
     def delete(self,fileID):
         print(f"Deleting file {fileID}")
