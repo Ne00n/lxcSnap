@@ -28,7 +28,7 @@ class SNAP():
         try:
             with open(file, 'rb') as f:
                 req = requests.post(f"https://{self.config['filer']}/{fid}", data=f, headers={'Content-Type': 'form/multipart'}, auth=(self.config['username'], self.config['password']))
-            return req.status_code,""
+            return req.status_code,f"Got http response code {r.status_code}"
         except Exception as ex:
             return 0,ex
 
@@ -38,14 +38,14 @@ class SNAP():
                 with open(f'{self.path}/tmp/{fileID}.tar.gz', 'wb') as f:
                     for chunk in r.iter_content(chunk_size=8192): 
                         f.write(chunk)
-            return r.status_code,""
+            return r.status_code,f"Got http response code {r.status_code}"
         except Exception as ex:
             return 0,ex
 
     def deleteFile(self,fileID):
         try:
             req = requests.delete(f"https://{self.config['filer']}/{fileID}", timeout=(5,5), auth=(self.config['username'], self.config['password']))
-            return req.status_code,""
+            return req.status_code,f"Got http response code {r.status_code}"
         except Exception as ex:
             return 0,ex
 
@@ -89,12 +89,12 @@ class SNAP():
         statusCode,message = self.reqFileID(ttl)
         assign = message
         if statusCode != 200:
-            print(f"Got HTTP {statusCode}, Error at requesting fileID: {message}")
+            print(f"Error at requesting fileID: {message}")
             return False
         print(f"Uploading file as {assign['fid']}")
         statusCode,message = self.uploadFile(f'{self.path}/tmp/{container}Backup.tar.gz',assign['fid'])
         if statusCode != 201:
-            print(f"Got HTTP {statusCode}, Error at uploading file: {message}")
+            print(f"Error at uploading file: {message}")
             return False
         print(f"Cleaning up")
         os.remove(f'{self.path}/tmp/{container}Backup.tar.gz')
@@ -119,7 +119,7 @@ class SNAP():
         print(f"Downloading file {fileID}")
         statusCode, message = self.downloadFile(fileID)
         if statusCode != 200:
-            print(f"Got HTTP {statusCode}, Error at downloading file: {message}")
+            print(f"Error at downloading file: {message}")
             return False
         print(f"File downloaded as {self.path}/tmp/{fileID}.tar.gz")
         return True
@@ -128,7 +128,7 @@ class SNAP():
         print(f"Deleting file {fileID}")
         statusCode, message = self.deleteFile(fileID)
         if statusCode != 202:
-            print(f"Got HTTP {statusCode}, Error at deleting file: {message}")
+            print(f"Error at deleting file: {message}")
             return False
         backups = self.backups[container]
         for index, backup in enumerate(list(backups)):
