@@ -1,0 +1,19 @@
+[Unit]
+Description=SeaweedFS Volume
+After=network.target
+StartLimitBurst=3
+StartLimitIntervalSec=200
+
+[Service]
+Type=simple
+User=seaweedfs
+Group=seaweedfs
+Restart=on-failure
+RestartSec=60s
+
+ExecStart=/home/seaweedfs/weed volume -mserver=127.0.0.1:9333 -fileSizeLimitMB=100000
+WorkingDirectory=/home/seaweedfs/
+SyslogIdentifier=seaweedfs-volume
+
+[Install]
+WantedBy=multi-user.target
