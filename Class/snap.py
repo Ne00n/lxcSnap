@@ -90,12 +90,12 @@ class SNAP():
         statusCode,message = self.reqFileID(ttl)
         assign = message
         if statusCode != 200:
-            print(f"Error at requesting fileID {message}")
+            print(f"Got HTTP {statusCode}, Error at requesting fileID: {message}")
             return False
         print(f"Uploading file as {assign['fid']}")
         statusCode,message = self.uploadFile(f'{self.path}/tmp/{container}Backup.tar.gz',assign['fid'])
         if statusCode != 201:
-            print(f"Error at uploading file {message}")
+            print(f"Got HTTP {statusCode}, Error at uploading file: {message}")
             return False
         print(f"Cleaning up")
         os.remove(f'{self.path}/tmp/{container}Backup.tar.gz')
@@ -120,7 +120,7 @@ class SNAP():
         print(f"Downloading file {fileID}")
         statusCode, message = self.downloadFile(fileID)
         if statusCode != 200:
-            print(f"Error at downloading file {message}")
+            print(f"Got HTTP {statusCode}, Error at downloading file: {message}")
             return False
         print(f"File downloaded as {self.path}/tmp/{fileID}.tar.gz")
         return True
@@ -129,7 +129,7 @@ class SNAP():
         print(f"Deleting file {fileID}")
         statusCode, message = self.deleteFile(fileID)
         if statusCode != 202:
-            print(f"Error at deleting file {message}")
+            print(f"Got HTTP {statusCode}, Error at deleting file: {message}")
             return False
         backups = self.backups[container]
         for index, backup in enumerate(list(backups)):
