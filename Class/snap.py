@@ -20,7 +20,7 @@ class SNAP():
             try:
                 return req.status_code,req.json()
             except:
-                return req.status_code,"Failed to get valid JSON response"
+                return req.status_code,f"Got http response code {req.status_code} with invalid JSON response"
         except Exception as ex:
             return 0,ex
 
