@@ -37,8 +37,8 @@ By default a single volume is limited to 30GB.<br>
 If you plan to use a few TB's of storage, check out the large_disk version.<br>
 
 Also by default there is a 300MB file size limit.<br>
-You have to start master, volume and filer seperate to set a higher limit.<b>
-Check out the systemd files in configs/
+You have to start master, volume and filer seperate to set a higher limit.<br>
+Check out the systemd files in configs/.<br>
 
 **Reverse Proxy**<br>
 Seaweedfs doesn't support any authentication on the master server, so we have to do our own.<br>
