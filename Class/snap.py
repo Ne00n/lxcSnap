@@ -23,7 +23,6 @@ class SNAP():
                 return req.status_code,"Failed to get valid JSON response"
         except Exception as ex:
             return 0,ex
-        return 0,""
 
     def uploadFile(self,file,fid):
         try:
@@ -32,7 +31,6 @@ class SNAP():
             return req.status_code,""
         except Exception as ex:
             return 0,ex
-        return 0,"Failed to upload file"
 
     def downloadFile(self,fileID):
         try:
@@ -43,7 +41,6 @@ class SNAP():
             return r.status_code,""
         except Exception as ex:
             return 0,ex
-        return 0,"Failed to download file"
 
     def deleteFile(self,fileID):
         try:
@@ -51,7 +48,6 @@ class SNAP():
             return req.status_code,""
         except Exception as ex:
             return 0,ex
-        return 0,"Failed to delete file"
 
     def snapShot(self,container):
         result = subprocess.run(f"{self.config['type']} snapshot create {container} {container}Backup", shell=True)
