@@ -28,24 +28,24 @@ class SNAP():
         try:
             with open(file, 'rb') as f:
                 req = requests.post(f"https://{self.config['filer']}/{fid}", data=f, headers={'Content-Type': 'form/multipart'}, auth=(self.config['username'], self.config['password']))
-            return req.status_code,f"Got http response code {r.status_code}"
+            return req.status_code,f"Got http response code {req.status_code}"
         except Exception as ex:
             return 0,ex
 
     def downloadFile(self,fileID):
         try:
-            with requests.get(f"https://{self.config['filer']}/{fileID}", stream=True, auth=(self.config['username'], self.config['password'])) as r:
+            with requests.get(f"https://{self.config['filer']}/{fileID}", stream=True, auth=(self.config['username'], self.config['password'])) as req:
                 with open(f'{self.path}/tmp/{fileID}.tar.gz', 'wb') as f:
-                    for chunk in r.iter_content(chunk_size=8192): 
+                    for chunk in req.iter_content(chunk_size=8192): 
                         f.write(chunk)
-            return r.status_code,f"Got http response code {r.status_code}"
+            return r.status_code,f"Got http response code {req.status_code}"
         except Exception as ex:
             return 0,ex
 
     def deleteFile(self,fileID):
         try:
             req = requests.delete(f"https://{self.config['filer']}/{fileID}", timeout=(5,5), auth=(self.config['username'], self.config['password']))
-            return req.status_code,f"Got http response code {r.status_code}"
+            return req.status_code,f"Got http response code {req.status_code}"
         except Exception as ex:
             return 0,ex
 
