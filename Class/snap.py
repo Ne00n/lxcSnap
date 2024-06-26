@@ -17,7 +17,10 @@ class SNAP():
             reqUrl = f"https://{self.config['master']}/dir/assign"
             if ttl: reqUrl += f"?ttl={ttl}"
             req = requests.get(reqUrl, timeout=(5,5), auth=(self.config['username'], self.config['password']))
-            return req.status_code,req.json()
+            try:
+                return req.status_code,req.json()
+            except:
+                return req.status_code,"Failed to get valid JSON response"
         except Exception as ex:
             return 0,ex
         return 0,""
