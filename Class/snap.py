@@ -16,7 +16,7 @@ class SNAP():
         try:
             reqUrl = f"https://{self.config['master']}/dir/assign"
             if ttl: reqUrl += f"?ttl={ttl}"
-            req = requests.get(reqUrl, timeout=(5,5), auth=(self.config['username'], self.config['password']))
+            req = requests.get(reqUrl, timeout=(10,10), auth=(self.config['username'], self.config['password']))
             try:
                 return req.status_code,req.json()
             except:
